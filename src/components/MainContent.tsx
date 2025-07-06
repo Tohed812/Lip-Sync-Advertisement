@@ -14,6 +14,20 @@ const VisuallyHiddenInput = styled("input")({
 	width: 1,
 });
 
+const MainContentWrapper = styled(Box)(({ theme }) => ({
+	flexGrow: 1,
+	padding: theme.spacing(3),
+	marginLeft: "240px", // Sidebar width
+	marginRight: "350px", // RightPanel width
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
+	maxWidth: "calc(100% - 590px)", // 240px (Sidebar) + 350px (RightPanel)
+	margin: "0 auto",
+	position: "relative",
+	left: "120px", // Half of Sidebar width to center the content
+}));
+
 const MainContent = () => {
 	const [avatarImage, setAvatarImage] = useState<string | null>(null);
 	const [productImage, setProductImage] = useState<string | null>(null);
@@ -37,21 +51,29 @@ const MainContent = () => {
 	};
 
 	return (
-		<Box
-			sx={{
-				flexGrow: 1,
-				p: 3,
-				marginLeft: "240px", // Sidebar width
-				marginRight: "350px", // RightPanel width
-			}}
-		>
-			<Typography variant="h5" gutterBottom>
+		<MainContentWrapper>
+			<Typography variant="h5" gutterBottom align="center">
 				Create Advertisement
 			</Typography>
 
-			<Box sx={{ display: "flex", gap: 3, mb: 3 }}>
+			<Box
+				sx={{
+					display: "flex",
+					gap: 3,
+					mb: 3,
+					width: "100%",
+					justifyContent: "center",
+				}}
+			>
 				{/* Avatar Upload Section */}
-				<Paper sx={{ p: 2, flex: 1, textAlign: "center" }}>
+				<Paper
+					sx={{
+						p: 2,
+						flex: 1,
+						textAlign: "center",
+						maxWidth: "400px",
+					}}
+				>
 					<Typography variant="h6" gutterBottom>
 						Upload Avatar
 					</Typography>
@@ -60,7 +82,11 @@ const MainContent = () => {
 							<img
 								src={avatarImage}
 								alt="Avatar"
-								style={{ maxWidth: "100%", maxHeight: "300px" }}
+								style={{
+									maxWidth: "100%",
+									maxHeight: "300px",
+									objectFit: "contain",
+								}}
 							/>
 							<Button
 								variant="contained"
@@ -92,7 +118,14 @@ const MainContent = () => {
 				</Paper>
 
 				{/* Product Upload Section */}
-				<Paper sx={{ p: 2, flex: 1, textAlign: "center" }}>
+				<Paper
+					sx={{
+						p: 2,
+						flex: 1,
+						textAlign: "center",
+						maxWidth: "400px",
+					}}
+				>
 					<Typography variant="h6" gutterBottom>
 						Upload Product
 					</Typography>
@@ -101,7 +134,11 @@ const MainContent = () => {
 							<img
 								src={productImage}
 								alt="Product"
-								style={{ maxWidth: "100%", maxHeight: "300px" }}
+								style={{
+									maxWidth: "100%",
+									maxHeight: "300px",
+									objectFit: "contain",
+								}}
 							/>
 							<Button
 								variant="contained"
@@ -136,8 +173,8 @@ const MainContent = () => {
 			</Box>
 
 			{/* Preview Section */}
-			<Paper sx={{ p: 2, mt: 3 }}>
-				<Typography variant="h6" gutterBottom>
+			<Paper sx={{ p: 2, mt: 3, width: "100%", maxWidth: "800px" }}>
+				<Typography variant="h6" gutterBottom align="center">
 					Preview
 				</Typography>
 				<Box
@@ -147,6 +184,7 @@ const MainContent = () => {
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",
+						borderRadius: 1,
 					}}
 				>
 					<Typography color="text.secondary">
@@ -154,7 +192,7 @@ const MainContent = () => {
 					</Typography>
 				</Box>
 			</Paper>
-		</Box>
+		</MainContentWrapper>
 	);
 };
 

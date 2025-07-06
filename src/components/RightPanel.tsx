@@ -10,7 +10,7 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const PANEL_WIDTH = 350;
 
@@ -30,7 +30,22 @@ const RightPanel = () => {
 	const [scriptText, setScriptText] = useState("");
 	const [videoPrompt, setVideoPrompt] = useState("");
 
-	const lipSyncModels = ["LatentSync", "MuseTalk", "Wav2Lip"];
+	const lipSyncModels = [
+		"LatentSync",
+		"MuseTalk",
+		"Wav2Lip",
+		"SyncNet",
+		"LipGAN",
+	];
+
+	const modelDescriptions: { [key: string]: string } = {
+		LatentSync: "Advanced lip-sync model with natural mouth movements",
+		MuseTalk: "Music-oriented lip-sync with enhanced audio synchronization",
+		Wav2Lip: "Robust lip-sync model for various languages and accents",
+		SyncNet:
+			"Self-supervised model for accurate lip-sync detection and generation",
+		LipGAN: "GAN-based model for realistic lip movement synthesis",
+	};
 
 	return (
 		<StyledPaper elevation={0}>
@@ -53,6 +68,15 @@ const RightPanel = () => {
 							</MenuItem>
 						))}
 					</Select>
+					{selectedModel && (
+						<Typography
+							variant="caption"
+							color="text.secondary"
+							sx={{ mt: 1, display: "block" }}
+						>
+							{modelDescriptions[selectedModel]}
+						</Typography>
+					)}
 				</FormControl>
 			</Box>
 
@@ -74,6 +98,7 @@ const RightPanel = () => {
 						mt: 2,
 						display: "flex",
 						justifyContent: "space-between",
+						alignItems: "center",
 					}}
 				>
 					<Typography variant="caption" color="text.secondary">

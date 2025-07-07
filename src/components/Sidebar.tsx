@@ -12,19 +12,29 @@ import {
 
 const models = [
 	{
-		id: "model1",
-		name: "Basic Lip Sync",
-		description: "Fast and efficient lip syncing",
+		id: "latentsync",
+		name: "LatentSync",
+		description: "Advanced latent diffusion model",
 	},
 	{
-		id: "model2",
-		name: "Advanced Lip Sync",
-		description: "High quality with natural movements",
+		id: "musetalk",
+		name: "MuseTalk",
+		description: "Music-driven talking head synthesis",
 	},
 	{
-		id: "model3",
-		name: "Professional Lip Sync",
-		description: "Best quality with emotion support",
+		id: "wav2lip",
+		name: "Wav2Lip",
+		description: "Accurate lip synchronization",
+	},
+	{
+		id: "syncnet",
+		name: "SyncNet",
+		description: "Audio-visual synchronization network",
+	},
+	{
+		id: "lipgan",
+		name: "LipGAN",
+		description: "GAN-based lip synthesis",
 	},
 ];
 
@@ -43,7 +53,7 @@ export default function Sidebar() {
 					<h2 className="font-medium mb-2">Model Selection</h2>
 					<Select>
 						<SelectTrigger>
-							<SelectValue placeholder="Choose a model" />
+							<SelectValue placeholder="Select Lip Sync Model" />
 						</SelectTrigger>
 						<SelectContent>
 							{models.map((model) => (

@@ -1,238 +1,65 @@
-import { CloudUpload as CloudUploadIcon } from "@mui/icons-material";
-import { Box, Button, Paper, styled, Typography } from "@mui/material";
-import React, { useState } from "react";
+"use client";
 
-const VisuallyHiddenInput = styled("input")({
-	clip: "rect(0 0 0 0)",
-	clipPath: "inset(50%)",
-	height: 1,
-	overflow: "hidden",
-	position: "absolute",
-	bottom: 0,
-	left: 0,
-	whiteSpace: "nowrap",
-	width: 1,
-});
+import { useState } from "react";
+import { Card } from "./ui/card";
 
-const MainContentWrapper = styled(Box)({
-	flexGrow: 1,
-	height: "100vh",
-	overflow: "auto",
-	paddingLeft: "240px", // Sidebar width
-	paddingRight: "350px", // RightPanel width
-});
+const models = [
+	{
+		id: "latentsync",
+		name: "LatentSync",
+		description: "High-quality lip sync with latent diffusion",
+	},
+	{
+		id: "musetalk",
+		name: "MuseTalk",
+		description: "Music-driven lip sync model",
+	},
+	{
+		id: "wav2lip",
+		name: "Wav2Lip",
+		description: "Classic lip sync model with proven reliability",
+	},
+	{
+		id: "syncnet",
+		name: "SyncNet",
+		description: "Fast and efficient lip sync model",
+	},
+	{
+		id: "lipgan",
+		name: "LipGAN",
+		description: "GAN-based lip sync with natural movements",
+	},
+];
 
-const ContentContainer = styled(Box)(({ theme }) => ({
-	maxWidth: "1000px",
-	margin: "0 auto",
-	padding: theme.spacing(3),
-	display: "flex",
-	flexDirection: "column",
-	alignItems: "center",
-}));
+export default function MainContent() {
+	const [selectedModel, setSelectedModel] = useState<string>("");
+	const [modelImage, setModelImage] = useState<File | null>(null);
 
-const MainContent = () => {
-	const [avatarImage, setAvatarImage] = useState<string | null>(null);
-	const [productImage, setProductImage] = useState<string | null>(null);
+	const handleModelSelect = (value: string) => {
+		setSelectedModel(value);
+	};
 
-	const handleImageUpload = (
-		event: React.ChangeEvent<HTMLInputElement>,
-		type: "avatar" | "product"
-	) => {
-		const file = event.target.files?.[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				if (type === "avatar") {
-					setAvatarImage(reader.result as string);
-				} else {
-					setProductImage(reader.result as string);
-				}
-			};
-			reader.readAsDataURL(file);
+	const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files[0]) {
+			const file = e.target.files[0];
+			if (file.size > 20 * 1024 * 1024) {
+				alert("File size must be less than 20MB");
+				return;
+			}
+			setModelImage(file);
 		}
 	};
 
 	return (
-		<MainContentWrapper>
-			<ContentContainer>
-				<Typography variant="h5" gutterBottom align="center">
-					Create Advertisement
-				</Typography>
-
-				<Box
-					sx={{
-						display: "flex",
-						gap: 3,
-						mb: 3,
-						width: "100%",
-						justifyContent: "center",
-						flexWrap: { xs: "wrap", md: "nowrap" },
-					}}
-				>
-					{/* Avatar Upload Section */}
-					<Paper
-						sx={{
-							p: 2,
-							flex: "1 1 300px",
-							maxWidth: "400px",
-							minWidth: { xs: "100%", md: "300px" },
-							textAlign: "center",
-						}}
-					>
-						<Typography variant="h6" gutterBottom>
-							Upload Avatar
-						</Typography>
-						{avatarImage ? (
-							<Box sx={{ position: "relative" }}>
-								<img
-									src={avatarImage}
-									alt="Avatar"
-									style={{
-										width: "100%",
-										height: "300px",
-										objectFit: "contain",
-									}}
-								/>
-								<Button
-									variant="contained"
-									size="small"
-									sx={{
-										position: "absolute",
-										bottom: 8,
-										right: 8,
-									}}
-									onClick={() => setAvatarImage(null)}
-								>
-									Remove
-								</Button>
-							</Box>
-						) : (
-							<Box
-								sx={{
-									height: "300px",
-									display: "flex",
-									alignItems: "center",
-									justifyContent: "center",
-									backgroundColor: "#f5f5f5",
-									borderRadius: 1,
-								}}
-							>
-								<Button
-									component="label"
-									variant="contained"
-									startIcon={<CloudUploadIcon />}
-								>
-									Upload Avatar
-									<VisuallyHiddenInput
-										type="file"
-										accept="image/*"
-										onChange={(e) =>
-											handleImageUpload(e, "avatar")
-										}
-									/>
-								</Button>
-							</Box>
-						)}
-					</Paper>
-
-					{/* Product Upload Section */}
-					<Paper
-						sx={{
-							p: 2,
-							flex: "1 1 300px",
-							maxWidth: "400px",
-							minWidth: { xs: "100%", md: "300px" },
-							textAlign: "center",
-						}}
-					>
-						<Typography variant="h6" gutterBottom>
-							Upload Product
-						</Typography>
-						{productImage ? (
-							<Box sx={{ position: "relative" }}>
-								<img
-									src={productImage}
-									alt="Product"
-									style={{
-										width: "100%",
-										height: "300px",
-										objectFit: "contain",
-									}}
-								/>
-								<Button
-									variant="contained"
-									size="small"
-									sx={{
-										position: "absolute",
-										bottom: 8,
-										right: 8,
-									}}
-									onClick={() => setProductImage(null)}
-								>
-									Remove
-								</Button>
-							</Box>
-						) : (
-							<Box
-								sx={{
-									height: "300px",
-									display: "flex",
-									alignItems: "center",
-									justifyContent: "center",
-									backgroundColor: "#f5f5f5",
-									borderRadius: 1,
-								}}
-							>
-								<Button
-									component="label"
-									variant="contained"
-									startIcon={<CloudUploadIcon />}
-								>
-									Upload Product
-									<VisuallyHiddenInput
-										type="file"
-										accept="image/*"
-										onChange={(e) =>
-											handleImageUpload(e, "product")
-										}
-									/>
-								</Button>
-							</Box>
-						)}
-					</Paper>
-				</Box>
-
-				{/* Preview Section */}
-				<Paper
-					sx={{
-						p: 2,
-						mt: 3,
-						width: "100%",
-						maxWidth: "900px",
-					}}
-				>
-					<Typography variant="h6" gutterBottom align="center">
-						Preview
-					</Typography>
-					<Box
-						sx={{
-							height: "400px",
-							backgroundColor: "#f5f5f5",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-							borderRadius: 1,
-						}}
-					>
-						<Typography color="text.secondary">
-							Preview will appear here after processing
-						</Typography>
-					</Box>
-				</Paper>
-			</ContentContainer>
-		</MainContentWrapper>
+		<main className="p-6">
+			<Card className="p-6">
+				<h1 className="text-2xl font-bold mb-4">Video Preview</h1>
+				<div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
+					<p className="text-muted-foreground">
+						Video preview will appear here
+					</p>
+				</div>
+			</Card>
+		</main>
 	);
-};
-
-export default MainContent;
+}

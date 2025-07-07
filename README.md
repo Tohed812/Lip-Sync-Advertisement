@@ -1,21 +1,28 @@
-# Lip Sync Advertisement
+# Lip Sync Advertisement Creator
 
-A powerful tool for creating AI-powered advertisement videos with lip-synced avatars.
+A web application for creating lip-synced advertisements using AI models. Built with Next.js 14, TypeScript, and shadcn/ui components.
 
 ## Features
 
--   Upload and edit avatar images
--   Upload product images
--   Multiple lip-sync model options (LatentSync, MuseTalk, Wav2Lip)
--   Text-to-speech with voice cloning
--   Custom video prompts for advertisement generation
--   Modern and intuitive user interface
+-   🎥 Create lip-synced videos from images and audio
+-   🤖 Multiple AI model options for different quality levels
+-   🎨 Modern, responsive UI with dark mode support
+-   ⚡ Fast and efficient processing
+-   📱 Mobile-friendly interface
+
+## Tech Stack
+
+-   **Framework:** [Next.js 14](https://nextjs.org/)
+-   **Language:** [TypeScript](https://www.typescriptlang.org/)
+-   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+-   **UI Components:** [shadcn/ui](https://ui.shadcn.com/)
+-   **Icons:** [Lucide Icons](https://lucide.dev/)
 
 ## Getting Started
 
 ### Prerequisites
 
--   Node.js (v14 or higher)
+-   Node.js 18.17 or later
 -   npm or yarn
 
 ### Installation
@@ -23,43 +30,60 @@ A powerful tool for creating AI-powered advertisement videos with lip-synced ava
 1. Clone the repository:
 
 ```bash
-git clone [your-repo-url]
+git clone https://github.com/Tohed812/Lip-Sync-Advertisement.git
+cd Lip-Sync-Advertisement
 ```
 
 2. Install dependencies:
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
 3. Start the development server:
 
 ```bash
-npm start
-# or
-yarn start
+npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Usage
+### Build for Production
 
-1. Upload an avatar image (influencer or model)
-2. Upload your product image
-3. Select a lip-sync model
-4. Enter your advertisement script or upload audio
-5. (Optional) Add video prompts for gestures and emotions
-6. Click "Generate Advertisement" to create your video
+```bash
+npm run build
+npm start
+```
 
-## Tech Stack
+## Project Structure
 
--   React
--   TypeScript
--   Material-UI (MUI)
--   Various AI models for lip-sync and voice cloning
+```
+src/
+├── app/                   # Next.js app directory
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Home page
+├── components/           # React components
+│   ├── MainContent.tsx   # Main video preview
+│   ├── Sidebar.tsx      # Left sidebar with controls
+│   ├── RightPanel.tsx   # Right settings panel
+│   └── ui/              # shadcn/ui components
+├── lib/                 # Utility functions
+└── types/              # TypeScript type definitions
+```
+
+## Features in Development
+
+-   [ ] Multiple AI model support
+-   [ ] Real-time video preview
+-   [ ] Export options (MP4, GIF)
+-   [ ] Background noise reduction
+-   [ ] Voice clarity enhancement
+-   [ ] Batch processing
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

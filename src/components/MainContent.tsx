@@ -88,22 +88,28 @@ export default function MainContent() {
 							</h3>
 							<div className="space-y-6">
 								<p className="text-sm text-muted-foreground">
-									Upload size: 300×300 ~ 4096×4096, less than
-									20M
+									Max file size: 20M
 								</p>
-								<div>
+								<div className="flex gap-4 justify-center">
 									<input
 										type="file"
-										accept="image/*"
+										id="image-upload"
 										className="hidden"
-										id="main-image-upload"
+										accept="image/*"
 										onChange={handleImageUpload}
 									/>
-									<label htmlFor="main-image-upload">
-										<Button className="w-40" asChild>
-											<span>Upload Image</span>
+									<label
+										htmlFor="image-upload"
+										className="cursor-pointer"
+									>
+										<Button className="w-40">
+											<Upload className="w-4 h-4 mr-2" />
+											Upload Image
 										</Button>
 									</label>
+									<Button className="w-40">
+										Generate Image
+									</Button>
 								</div>
 							</div>
 							<div className="mt-8">

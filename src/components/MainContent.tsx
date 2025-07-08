@@ -1,35 +1,26 @@
 "use client";
 
 import { Upload } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 
-const models = [
+const exampleImages = [
 	{
-		id: "latentsync",
-		name: "LatentSync",
-		description: "High-quality lip sync with latent diffusion",
+		id: 1,
+		src: "/examples/1-original.png",
+		alt: "Beauty product advertisement with model",
 	},
 	{
-		id: "musetalk",
-		name: "MuseTalk",
-		description: "Music-driven lip sync model",
+		id: 2,
+		src: "/examples/2-original.png",
+		alt: "Fitness supplement advertisement with model",
 	},
 	{
-		id: "wav2lip",
-		name: "Wav2Lip",
-		description: "Classic lip sync model with proven reliability",
-	},
-	{
-		id: "syncnet",
-		name: "SyncNet",
-		description: "Fast and efficient lip sync model",
-	},
-	{
-		id: "lipgan",
-		name: "LipGAN",
-		description: "GAN-based lip sync with natural movements",
+		id: 3,
+		src: "/examples/3-original.png",
+		alt: "Camera product advertisement with model",
 	},
 ];
 
@@ -50,6 +41,13 @@ export default function MainContent() {
 		}
 	};
 
+	const handleExampleClick = (src: string) => {
+		setSelectedImage(src);
+		// Add to history with a recognizable name
+		const imageName = src.split("/").pop() || "example-image";
+		setHistory((prev) => [...prev, imageName]);
+	};
+
 	return (
 		<main className="flex flex-col min-h-screen">
 			{/* Center Container */}
@@ -57,11 +55,21 @@ export default function MainContent() {
 				<Card className="w-[568px] h-[568px] flex flex-col items-center justify-center p-8 bg-muted/50">
 					{selectedImage ? (
 						<div className="relative w-full h-full">
-							<img
-								src={selectedImage}
-								alt="Uploaded model"
-								className="w-full h-full object-cover rounded-lg"
-							/>
+							<div className="relative w-full h-full">
+								<Image
+									src={
+										selectedImage.startsWith("blob:")
+											? selectedImage
+											: selectedImage
+									}
+									alt="Selected model"
+									fill
+									className="object-contain rounded-lg"
+									unoptimized={selectedImage.startsWith(
+										"blob:"
+									)}
+								/>
+							</div>
 							<Button
 								variant="outline"
 								className="absolute bottom-4 right-4"
@@ -102,28 +110,25 @@ export default function MainContent() {
 								<p className="text-sm text-muted-foreground mb-4">
 									Or try the following
 								</p>
-								<div className="grid grid-cols-3 gap-4">
-									<button className="aspect-square rounded-lg border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 transition-colors">
-										<img
-											src="/examples/model1.jpg"
-											alt="Example 1"
-											className="w-full h-full object-cover rounded-lg"
-										/>
-									</button>
-									<button className="aspect-square rounded-lg border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 transition-colors">
-										<img
-											src="/examples/model2.jpg"
-											alt="Example 2"
-											className="w-full h-full object-cover rounded-lg"
-										/>
-									</button>
-									<button className="aspect-square rounded-lg border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 transition-colors">
-										<img
-											src="/examples/model3.jpg"
-											alt="Example 3"
-											className="w-full h-full object-cover rounded-lg"
-										/>
-									</button>
+								<div className="flex gap-4 justify-center">
+									{exampleImages.map((image) => (
+										<button
+											key={image.id}
+											className="w-[58px] h-[58px] rounded-lg border-2 border-dashed border-muted-foreground/25 hover:border-muted-foreground/50 transition-colors overflow-hidden"
+											onClick={() =>
+												handleExampleClick(image.src)
+											}
+										>
+											<div className="relative w-full h-full">
+												<Image
+													src={image.src}
+													alt={image.alt}
+													fill
+													className="object-cover"
+												/>
+											</div>
+										</button>
+									))}
 								</div>
 							</div>
 						</div>
